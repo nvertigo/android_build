@@ -174,6 +174,9 @@ class EdifyGenerator(object):
     self.script.append('package_extract_dir("magisk", "/tmp/magisk");')
     self.script.append('run_program("/sbin/busybox", "unzip", "/tmp/magisk/magisk.zip", "META-INF/com/google/android/*", "-d", "/tmp/magisk");')
     self.script.append('run_program("/sbin/sh", "/tmp/magisk/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/magisk/magisk.zip");')
+    self.script.append('mount("ext4", "EMMC", "/dev/block/bootdevice/by-name/system", "/system", "");')
+    self.script.append('delete("/system/addon.d/magisk.zip");')
+    self.script.append('unmount("/system");')
 
   def ShowProgress(self, frac, dur):
     """Update the progress bar, advancing it over 'frac' over the next
