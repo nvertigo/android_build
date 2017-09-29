@@ -29,7 +29,11 @@ fi
 echo "ro.product.model=$PRODUCT_MODEL"
 echo "ro.product.brand=$PRODUCT_BRAND"
 echo "ro.product.name=$PRODUCT_NAME"
-echo "ro.product.device=$TARGET_DEVICE"
+if [ -n "$PRIVATE_TARGET_DEVICE" ] ; then
+  echo "ro.product.device=$PRIVATE_TARGET_DEVICE"
+else
+  echo "ro.product.device=$TARGET_DEVICE"
+fi
 echo "ro.product.board=$TARGET_BOOTLOADER_BOARD_NAME"
 
 # These values are deprecated, use "ro.product.cpu.abilist"
@@ -52,7 +56,11 @@ echo "ro.wifi.channels=$PRODUCT_DEFAULT_WIFI_CHANNELS"
 echo "ro.board.platform=$TARGET_BOARD_PLATFORM"
 
 echo "# ro.build.product is obsolete; use ro.product.device"
-echo "ro.build.product=$TARGET_DEVICE"
+if [ -n "$PRIVATE_BUILD_PRODUCT" ] ; then
+  echo "ro.build.product=$PRIVATE_BUILD_PRODUCT"
+else
+  echo "ro.build.product=$TARGET_DEVICE"
+fi
 
 echo "# Do not try to parse description, fingerprint, or thumbprint"
 echo "ro.build.description=$PRIVATE_BUILD_DESC"
